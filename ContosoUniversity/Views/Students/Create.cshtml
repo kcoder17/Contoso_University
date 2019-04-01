@@ -4,38 +4,33 @@
     ViewData["Title"] = "Create";
 }
 
-<h1>Create</h1>
-
-<h4>Student</h4>
+<h1 class="text-center" style="margin-bottom: 30px">Create Student</h1>
 <hr />
 <div class="row">
-    <div class="col-md-4">
+    <div class="offset-4 col-md-4">
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="LastName" class="control-label"></label>
+                <label asp-for="LastName" class="control-label" style="font-weight: bold"></label>
                 <input asp-for="LastName" class="form-control" />
                 <span asp-validation-for="LastName" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="FirstMidName" class="control-label"></label>
+                <label asp-for="FirstMidName" class="control-label" style="font-weight: bold"></label>
                 <input asp-for="FirstMidName" class="form-control" />
                 <span asp-validation-for="FirstMidName" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="EnrollmentDate" class="control-label"></label>
+                <label asp-for="EnrollmentDate" class="control-label" style="font-weight: bold"></label>
                 <input asp-for="EnrollmentDate" class="form-control" />
                 <span asp-validation-for="EnrollmentDate" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <a asp-action="Index" class="btn btn-primary">Back</a>
+                <input type="submit" value="Create" class="btn btn-success" />
             </div>
         </form>
     </div>
-</div>
-
-<div>
-    <a asp-action="Index">Back to List</a>
 </div>
 
 @section Scripts {

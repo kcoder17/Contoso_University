@@ -4,47 +4,42 @@
     ViewData["Title"] = "Edit";
 }
 
-<h1>Edit</h1>
-
-<h4>Department</h4>
+<h1 class="text-center" style="margin-bottom: 30px">Edit</h1>
 <hr />
 <div class="row">
-    <div class="col-md-4">
+    <div class="offset-4 col-md-4">
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="DepartmentID" />
             <input type="hidden" asp-for="RowVersion" />
             <div class="form-group">
-                <label asp-for="Name" class="control-label"></label>
+                <label asp-for="Name" class="control-label" style="font-weight: bold"></label>
                 <input asp-for="Name" class="form-control" />
                 <span asp-validation-for="Name" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Budget" class="control-label"></label>
+                <label asp-for="Budget" class="control-label" style="font-weight: bold"></label>
                 <input asp-for="Budget" class="form-control" />
                 <span asp-validation-for="Budget" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="StartDate" class="control-label"></label>
+                <label asp-for="StartDate" class="control-label" style="font-weight: bold"></label>
                 <input asp-for="StartDate" class="form-control" />
                 <span asp-validation-for="StartDate" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="InstructorID" class="control-label"></label>
+                <label asp-for="InstructorID" class="control-label" style="font-weight: bold"></label>
                 <select asp-for="InstructorID" class="form-control" asp-items="ViewBag.InstructorID">
                     <option value="">-- Select Administrator --</option>
                 </select>
                 <span asp-validation-for="InstructorID" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+                <a asp-action="Index" class="btn btn-primary">Back</a>
+                <input type="submit" value="Save" class="btn btn-success" />
             </div>
         </form>
     </div>
-</div>
-
-<div>
-    <a asp-action="Index">Back to List</a>
 </div>
 
 @section Scripts {

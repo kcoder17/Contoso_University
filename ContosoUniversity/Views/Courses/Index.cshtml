@@ -4,50 +4,37 @@
     ViewData["Title"] = "Courses";
 }
 
-<h1>Courses</h1>
+<h1 class="text-center" style="margin-bottom: 30px">Courses</h1>
+<a asp-action="Create" class="btn btn-primary" style="float: right">Add Course</a><br /><br />
+<div class="form-row" style="padding: 15px 0; border-top: 2px solid grey; border-bottom: 2px solid grey; margin-bottom: 0">
+    <strong class="form-inline col-md-10">
+        <span class="col-md-3">
+            @Html.DisplayNameFor(model => model.CourseID)
+        </span>
+        <span class="col-md-3">
+            @Html.DisplayNameFor(model => model.Title)
+        </span>
+        <span class="col-md-3">
+            @Html.DisplayNameFor(model => model.Credits)
+        </span>
+        <span class="col-md-3">
+            @Html.DisplayNameFor(model => model.Department)
+        </span>
+    </strong>
+</div>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.CourseID)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Title)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Credits)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Department)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.CourseID)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Title)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Credits)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Department.Name)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.CourseID">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.CourseID">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.CourseID">Delete</a>
-            </td>
-        </tr>
+@foreach (var item in Model)
+{
+    <div class="form-row" style="padding: 15px 0; border-bottom: 1px solid grey; margin-bottom: 0">
+        <a asp-action="Details" asp-route-id="@item.CourseID" class="form-inline col-md-10">
+            <div class="col-md-3">@Html.DisplayFor(modelItem => item.CourseID)</div>
+            <div class="col-md-3">@Html.DisplayFor(modelItem => item.Title)</div>
+            <div class="col-md-3">@Html.DisplayFor(modelItem => item.Credits)</div>
+            <div class="col-md-3">@Html.DisplayFor(modelItem => item.Department.Name)</div>
+        </a>
+        <div class="col-md-2">
+            <a asp-action="Delete" asp-route-id="@item.CourseID" class="btn btn-danger btn-sm" style="float: right; margin-right: 15px; padding: 0 5px">Delete</a>
+            <a asp-action="Edit" asp-route-id="@item.CourseID" class="btn btn-primary btn-sm" style="float: right; margin-right: 10px; padding: 0 12px">Edit</a>
+        </div>
+    </div>
 }
-    </tbody>
-</table>

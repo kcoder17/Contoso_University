@@ -4,37 +4,35 @@
     ViewData["Title"] = "Edit";
 }
 
-<h1>Edit</h1>
-
-<h4>Instructor</h4>
+<h1 class="text-center" style="margin-bottom: 30px">Edit Instructor Data</h1>
 <hr />
 <div class="row">
-    <div class="col-md-4">
+    <div class="offset-3 col-md-6">
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="ID" />
             <div class="form-group">
-                <label asp-for="LastName" class="control-label"></label>
+                <label asp-for="LastName" class="control-label" style="font-weight: bold"></label>
                 <input asp-for="LastName" class="form-control" />
                 <span asp-validation-for="LastName" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="FirstMidName" class="control-label"></label>
+                <label asp-for="FirstMidName" class="control-label" style="font-weight: bold"></label>
                 <input asp-for="FirstMidName" class="form-control" />
                 <span asp-validation-for="FirstMidName" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="HireDate" class="control-label"></label>
+                <label asp-for="HireDate" class="control-label" style="font-weight: bold"></label>
                 <input asp-for="HireDate" class="form-control" />
                 <span asp-validation-for="HireDate" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="OfficeAssignment.Location" class="control-label"></label>
+                <label asp-for="OfficeAssignment.Location" class="control-label" style="font-weight: bold"></label>
                 <input asp-for="OfficeAssignment.Location" class="form-control" />
                 <span asp-validation-for="OfficeAssignment.Location" class="text-danger" />
             </div>
             <div class="form-group">
-                <div class="col-md-offset-2 col-md-10">
+                <div class="col-md-12">
                     <table>
                         <tr>
                             @{
@@ -59,13 +57,11 @@
                 </div>
             </div>
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+                <a asp-action="Index" class="btn btn-primary">Back</a>
+                <input type="submit" value="Save" class="btn btn-success" />
             </div>
         </form>
     </div>
-</div>
-<div>
-    <a asp-action="Index">Back to List</a>
 </div>
 
 @section Scripts {

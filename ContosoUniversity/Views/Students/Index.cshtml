@@ -1,77 +1,60 @@
 ﻿@model PaginatedList<ContosoUniversity.Models.Student>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Students";
 }
 
-<h1>Index</h1>
-
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
+<h1 class="text-center" style="margin-bottom: 30px">Students</h1>
+<a asp-action="Create" class="btn btn-primary" style="float: right; margin-top: 32px">Add Student</a>
 <form asp-action="Index" method="get">
-    <div class="form-actions no-color">
-        <p>
-            Find by name: <input type="text" name="SearchString" value="@ViewData["currentFilter"]" />
-            <input type="submit" value="Search" class="btn btn-default" /> |
-            <a asp-action="Index">Back to Full List</a>
-        </p>
+    <div class="form-row">
+        <div class="form-group" style="margin-right: 6px">
+            <label for="SearchString" style="font-weight: bold">Name</label>
+            <input class="form-control" type="text" name="SearchString" value="@ViewData["currentFilter"]" />
+        </div>
+        <div class="form-group" style="margin-right: 6px">
+            <input type="submit" value="Search" class="btn btn-primary" style="margin-top: 32px" />
+        </div>
+        <div class="form-group">
+            <a asp-action="Index" class="btn btn-primary" style="margin-top: 32px">Clear</a>
+        </div>
     </div>
 </form>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                <a asp-action="Index" asp-route-sortOrder="@ViewData["NameSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">Last Name</a>
-            </th>
-            <th>
-                First Name
-            </th>
-            <th>
-                <a asp-action="Index" asp-route-sortOrder="@ViewData["DateSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">Enrollment Date</a>
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.LastName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.FirstMidName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.EnrollmentDate)
-                </td>
-                <td>
-                    <a asp-action="Edit" asp-route-id="@item.ID">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@item.ID">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@item.ID">Delete</a>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
+<div class="form-row" style="padding: 15px 0; border-top: 2px solid grey; border-bottom: 2px solid grey; margin-bottom: 0">
+    <strong class="form-inline col-md-10">
+        <span class="col-md-3">
+            <a asp-action="Index" asp-route-sortOrder="@ViewData["NameSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">Last Name</a>
+        </span>
+        <span class="col-md-3">
+            First Name
+        </span>
+        <span class="col-md-6">
+            <a asp-action="Index" asp-route-sortOrder="@ViewData["DateSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">Enrollment Date</a>
+        </span>
+    </strong>
+</div>
+
+@foreach (var item in Model)
+{
+    <div class="form-row" style="padding: 15px 0; border-bottom: 1px solid grey; margin-bottom: 0">
+        <a asp-action="Details" asp-route-id="@item.ID" class="form-inline col-md-10">
+            <div class="col-md-3">@Html.DisplayFor(modelItem => item.LastName)</div>
+            <div class="col-md-3">@Html.DisplayFor(modelItem => item.FirstMidName)</div>
+            <div class="col-md-3">@Html.DisplayFor(modelItem => item.EnrollmentDate)</div>
+        </a>
+        <div class="col-md-2">
+            <a asp-action="Delete" asp-route-id="@item.ID" class="btn btn-danger btn-sm" style="float: right; margin-right: 15px; padding: 0 5px">Delete</a>
+            <a asp-action="Edit" asp-route-id="@item.ID" class="btn btn-primary btn-sm" style="float: right; margin-right: 10px; padding: 0 12px">Edit</a>
+        </div>
+    </div>
+}
 
 @{
     var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
     var nextDisabled = !Model.HasNextPage ? "disabled" : "";
 }
 
-<a asp-action="Index"
-   asp-route-sortOrder="@ViewData["CurrentSort"]"
-   asp-route-page="@(Model.PageIndex - 1)"
-   asp-route-currentFilter="@ViewData["CurrentFilter"]"
-   class="btn btn-default @prevDisabled">
-    Previous
-</a>
-<a asp-action="Index"
-   asp-route-sortOrder="@ViewData["CurrentSort"]"
-   asp-route-page="@(Model.PageIndex + 1)"
-   asp-route-currentFilter="@ViewData["CurrentFilter"]"
-   class="btn btn-default @nextDisabled">
-    Next
-</a>
+<a asp-action="Index" asp-route-sortOrder="@ViewData["CurrentSort"]" asp-route-page="@(Model.PageIndex - 1)"
+   asp-route-currentFilter="@ViewData["CurrentFilter"]" class="btn btn-primary @prevDisabled" style="margin-top: 10px">Previous</a>
+<a asp-action="Index" asp-route-sortOrder="@ViewData["CurrentSort"]" asp-route-page="@(Model.PageIndex + 1)"
+   asp-route-currentFilter="@ViewData["CurrentFilter"]" class="btn btn-primary @nextDisabled" style="margin-top: 10px">Next</a>

@@ -4,121 +4,126 @@
     ViewData["Title"] = "Instructors";
 }
 
-<h1>Instructors</h1>
+<h1 class="text-center" style="margin-bottom: 30px">Instructors</h1>
+<a asp-action="Create" class="btn btn-primary" style="float: right">Add Instructor</a><br /><br />
+<div class="form-row" style="padding: 15px 0; border-top: 2px solid grey; border-bottom: 2px solid grey; margin-bottom: 0">
+    <strong class="form-inline col-md-9">
+        <span class="col-md-2">
+            Last Name
+        </span>
+        <span class="col-md-2">
+            First Name
+        </span>
+        <span class="col-md-2">
+            Hire Date
+        </span>
+        <span class="col-md-2">
+            Office
+        </span>
+        <span class="col-md-4">
+            Courses
+        </span>
+    </strong>
+</div>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>Last Name</th>
-            <th>First Name</th>
-            <th>Hire Date</th>
-            <th>Office</th>
-            <th>Courses</th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model.Instructors)
-        {
-            string selectedRow = "";
-            if (item.ID == (int?)ViewData["InstructorID"])
-            {
-                selectedRow = "success";
-            }
-            <tr class="@selectedRow">
-                <td>
-                    @Html.DisplayFor(modelItem => item.LastName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.FirstMidName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.HireDate)
-                </td>
-                <td>
-                    @if (item.OfficeAssignment != null)
+@foreach (var item in Model.Instructors)
+{
+    string selectedRow = "";
+    if (item.ID == (int?)ViewData["InstructorID"])
+    {
+        selectedRow = "success";
+    }
+    <div class="form-row @selectedRow" style="padding: 15px 0; border-bottom: 1px solid grey; margin-bottom: 0">
+        <a asp-action="Details" asp-route-id="@item.ID" class="form-inline col-md-9">
+            <div class="col-md-2">@Html.DisplayFor(modelItem => item.LastName)</div>
+            <div class="col-md-2">@Html.DisplayFor(modelItem => item.FirstMidName)</div>
+            <div class="col-md-2">@Html.DisplayFor(modelItem => item.HireDate)</div>
+            <div class="col-md-2">
+                @if (item.OfficeAssignment != null)
+                {
+                    @item.OfficeAssignment.Location
+                }
+            </div>
+            <div class="col-md-4">
+                @{
+                    foreach (var course in item.CourseAssignments)
                     {
-                        @item.OfficeAssignment.Location
+                        @course.Course.CourseID @:  @course.Course.Title <br />
                     }
-                </td>
-                <td>
-                    @{
-                        foreach (var course in item.CourseAssignments)
-                        {
-                            @course.Course.CourseID @:  @course.Course.Title <br />
-                        }
-                    }
-                </td>
-                <td>
-                    <a asp-action="Index" asp-route-id="@item.ID">Select</a> |
-                    <a asp-action="Edit" asp-route-id="@item.ID">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@item.ID">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@item.ID">Delete</a>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
+                }
+            </div>
+        </a>
+        <div class="col-md-3">
+            <a asp-action="Delete" asp-route-id="@item.ID" class="btn btn-danger btn-sm" style="float: right; margin-right: 15px; padding: 0 5px">Delete</a>
+            <a asp-action="Edit" asp-route-id="@item.ID" class="btn btn-primary btn-sm" style="float: right; margin-right: 10px; padding: 0 12px">Edit</a>
+            <a asp-action="Index" asp-route-id="@item.ID" class="btn btn-primary btn-sm" style="float: right; margin-right: 10px; padding: 0 5px">Select</a>
+        </div>
+    </div>
+}
 
 @if (Model.Courses != null)
 {
-    <h3>Courses Taught by Selected Instructor</h3>
-    <table class="table">
-        <tr>
-            <th></th>
-            <th>Number</th>
-            <th>Title</th>
-            <th>Department</th>
-        </tr>
+    <h3 class="text-center" style="margin: 30px 0">Courses Taught by Selected Instructor</h3>
+    <div class="form-row" style="padding: 15px 0; border-top: 2px solid grey; border-bottom: 2px solid grey; margin-bottom: 0">
+        <strong class="form-inline col-md-12">
+            <span class="col-md-3">
+                Number
+            </span>
+            <span class="col-md-3">
+                Title
+            </span>
+            <span class="col-md-3">
+                Department
+            </span>
+            <span class="col-md-3">
+            </span>
+        </strong>
+    </div>
 
-        @foreach (var item in Model.Courses)
+    @foreach (var item in Model.Courses)
+    {
+        string selectedRow = "";
+        if (item.CourseID == (int?)ViewData["CourseID"])
         {
-            string selectedRow = "";
-            if (item.CourseID == (int?)ViewData["CourseID"])
-            {
-                selectedRow = "success";
-            }
-            <tr class="@selectedRow">
-                <td>
-                    @Html.ActionLink("Select", "Index", new { courseID = item.CourseID })
-                </td>
-                <td>
-                    @item.CourseID
-                </td>
-                <td>
-                    @item.Title
-                </td>
-                <td>
-                    @item.Department.Name
-                </td>
-            </tr>
+            selectedRow = "success";
         }
-    </table>
+        <div class="form-row @selectedRow" style="padding: 15px 0; border-bottom: 1px solid grey; margin-bottom: 0">
+            <div class="form-inline col-md-12">
+                <div class="col-md-3">@item.CourseID</div>
+                <div class="col-md-3">@item.Title</div>
+                <div class="col-md-4">@item.Department.Name</div>
+                <div class="col-md-2">
+                    @Html.ActionLink("Select", "Index", new { courseID = item.CourseID }, new { @class = "btn btn-primary btn-sm", style = "float: right; padding: 0 5px" })
+                </div>
+            </div>
+        </div>
+    }
 }
 
 @if (Model.Enrollments != null)
 {
-    <h3>
-        Students Enrolled in Selected Course
-    </h3>
-    <table class="table">
-        <tr>
-            <th>Name</th>
-            <th>Grade</th>
-        </tr>
-        @foreach (var item in Model.Enrollments)
-        {
-            <tr>
-                <td>
-                    @item.Student.FullName
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Grade)
-                </td>
-            </tr>
-        }
-    </table>
+    <h3 class="text-center" style="margin: 30px 0">Students Enrolled in Selected Course</h3>
+    <div class="form-row" style="padding: 15px 0; border-top: 2px solid grey; border-bottom: 2px solid grey; margin-bottom: 0">
+        <strong class="form-inline col-md-12">
+            <span class="col-md-3">
+                Name
+            </span>
+            <span class="col-md-3">
+                Grade
+            </span>
+            <span class="col-md-6">
+            </span>
+        </strong>
+    </div>
+
+    @foreach (var item in Model.Enrollments)
+    {
+        <div class="form-row" style="padding: 15px 0; border-bottom: 1px solid grey; margin-bottom: 0">
+            <div class="form-inline col-md-12">
+                <div class="col-md-3">@item.Student.FullName</div>
+                <div class="col-md-3">@item.Grade</div>
+                <div class="col-md-6"></div>
+            </div>
+        </div>
+    }
 }
